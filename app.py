@@ -1,6 +1,6 @@
 from telethon import TelegramClient, events, sync
 from telethon.tl.types import InputChannel, InputPeerUser
-# import yaml
+import yaml
 import sys
 from telethon.sessions import StringSession
 import logging
