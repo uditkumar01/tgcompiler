@@ -73,9 +73,9 @@ def start(config):
             else:
                 # time.sleep(2)
                 try:
-                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n**"+result+"**")
+                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+"**")
                 except Exception as excp:
-                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(excp),12)][len(excp)<20]+"\n"+"__ERROR:__\n**"+excp+"**")
+                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(excp),12)][len(excp)<20]+"\n"+"__ERROR:__\n\n**"+excp+"**")
 
     @client.on(events.NewMessage(pattern="/ac"))
     async def add_cpp(event):
@@ -119,9 +119,9 @@ def start(config):
                 os.remove("output.txt")
             else:
                 try:
-                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n**"+result+"**")
+                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+"**")
                 except Exception as excp:
-                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(excp),12)][len(excp)<20]+"\n"+"__ERROR:__\n**"+excp+"**")
+                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(excp),12)][len(excp)<20]+"\n"+"__ERROR:__\n\n**"+excp+"**")
 
     @client.on(events.NewMessage(pattern="/c |/c\n"))
     async def add_c(event):
@@ -166,9 +166,9 @@ def start(config):
                 os.remove("output.txt")
             else:
                 try:
-                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n**"+result+"**")
+                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+"**")
                 except Exception as excp:
-                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(excp),12)][len(excp)<20]+"\n"+"__ERROR:__\n**"+excp+"**")
+                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(excp),12)][len(excp)<20]+"\n"+"__ERROR:__\n\n**"+excp+"**")
 
     
 
