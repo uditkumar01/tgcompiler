@@ -75,7 +75,7 @@ def start(config):
                 try:
                     await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+"**")
                 except Exception as excp:
-                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(excp),12)][len(excp)<20]+"\n"+"__ERROR:__\n\n**"+excp+"**")
+                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+"**")
 
     @client.on(events.NewMessage(pattern="/ac"))
     async def add_cpp(event):
@@ -121,7 +121,7 @@ def start(config):
                 try:
                     await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+"**")
                 except Exception as excp:
-                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(excp),12)][len(excp)<20]+"\n"+"__ERROR:__\n\n**"+excp+"**")
+                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+"**")
 
     @client.on(events.NewMessage(pattern="/c"))
     async def add_c(event):
@@ -168,7 +168,7 @@ def start(config):
                 try:
                     await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+"**")
                 except Exception as excp:
-                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(excp),12)][len(excp)<20]+"\n"+"__ERROR:__\n\n**"+excp+"**")
+                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+"**")
         
     @client.on(events.NewMessage(pattern="/animate"))
     async def text_list_animate(event):
@@ -182,6 +182,7 @@ def start(config):
                 await client.edit_message(event.from_id, event.id, msg+"\n\n"+"__"+"No arguments given (c) ...__")
             command = "".join(f"\n {x}" for x in code.split("\n.strip()"))
             result = command.split(',')
+            print(result)
             if len(result) > 2500:
                 await client.edit_message(event.from_id, event.id, msg+"\n\n"+"__"+"Result is too big .. send as file__")
                 with open("output.txt", "w+") as f:
@@ -197,7 +198,7 @@ def start(config):
                         time.sleep(0.6)
                         j+=1
                 except Exception as excp:
-                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(excp),12)][len(excp)<20]+"\n"+"__ERROR:__\n\n**"+excp+"**")
+                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+"**")
 
     
 
