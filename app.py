@@ -134,7 +134,7 @@ def start(config):
             except IndexError:
                 await client.edit_message(event.from_id, event.id, msg+"\n\n"+"__"+"No arguments given (c) ...__")
             command = "".join(f"\n {x}" for x in code.split("\n.strip()"))
-            indexofip = command.find("c_input_vahttps://gph.is/2aiITrqrs")
+            indexofip = command.find("c_input_vars")
             ip = ""
             if indexofip != -1:
                 user_in = command[indexofip+len("c_input_vars:"):].strip()
