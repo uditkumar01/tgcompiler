@@ -202,7 +202,7 @@ def start(config):
             else:
                 try:
                     indexofresult,st = 0,time.time()
-                    while(time.time()-st<900):
+                    while(time.time()-st<time_out):
                         await client.edit_message(event.from_id,event.id,str(result[indexofresult]))
                         time.sleep(1)
                         indexofresult+=1
