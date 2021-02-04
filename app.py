@@ -179,11 +179,11 @@ def start(config):
             print("id",event.id)
             print("*"*20)
             msg = event.message.message
-            await client.edit_message(event.id,event.from_id,msg+"\n\n"+"__"+"Running c command . . ."+"__")
+            await client.edit_message(event.sender_id,event.from_id,msg+"\n\n"+"__"+"Running c command . . ."+"__")
             try:
                 code = msg.lstrip('/animate')
             except IndexError:
-                await client.edit_message(event.id,event.from_id,msg+"\n\n"+"__"+"No arguments given (c) ...__")
+                await client.edit_message(event.sender_id,event.from_id,msg+"\n\n"+"__"+"No arguments given (c) ...__")
             command = "".join(f"\n {x}" for x in code.split("\n.strip()"))
             time_out = 60
             result = []
@@ -198,7 +198,7 @@ def start(config):
             result = list(map(lambda x:x.strip(),result))
             print(result)
             if len(result) > 2500:
-                await client.edit_message(event.id,event.from_id,msg+"\n\n"+"__"+"Result is too big .. send as file__")
+                await client.edit_message(event.sender_id,event.from_id,msg+"\n\n"+"__"+"Result is too big .. send as file__")
                 with open("output.txt", "w+") as f:
                     f.write(result)
                 await client.send_file(event.chat_id, 'output.txt')
@@ -207,13 +207,13 @@ def start(config):
                 try:
                     indexofresult,st = 0,time.time()
                     while(time.time()-st<time_out):
-                        await client.edit_message(event.id,event.from_id,event.id,str(result[indexofresult]))
+                        await client.edit_message(event.sender_id,event.from_id,event.id,str(result[indexofresult]))
                         time.sleep(1)
                         indexofresult+=1
                         if indexofresult>=len(result):
                             indexofresult = 0
                 except Exception as excp:
-                    await client.edit_message(event.id,event.from_id,msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+"**")
+                    await client.edit_message(event.sender_id,event.from_id,msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+"**")
         
     
 
