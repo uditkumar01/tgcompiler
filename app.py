@@ -173,7 +173,9 @@ def start(config):
     @client.on(events.NewMessage(pattern="/animate"))
     async def text_list_animate(event):
         if str(event.sender_id) in os.environ.get("sender_id"):
-
+            print("*"*20)
+            print("event",event)
+            print("*"*20)
             msg = event.message.message
             await client.edit_message(event.chat_id,msg+"\n\n"+"__"+"Running c command . . ."+"__")
             try:
