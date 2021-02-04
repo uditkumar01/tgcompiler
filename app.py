@@ -31,7 +31,7 @@ def start(config):
 
     @client.on(events.NewMessage(pattern="/py"))
     async def add_py(event):
-        if str(event.sender_id) in os.environ.get("sender_id").split(','):
+        if str(event.sender_id) in os.environ.get("sender_id"):
 
             msg = event.message.message
             await client.edit_message(event.from_id, event.id, msg+"\n\n"+"__"+"Running python command . . .__")
@@ -79,7 +79,7 @@ def start(config):
 
     @client.on(events.NewMessage(pattern="/ac"))
     async def add_cpp(event):
-        if str(event.sender_id) in os.environ.get("sender_id").split(','):
+        if str(event.sender_id) in os.environ.get("sender_id"):
 
             msg = event.message.message
             await client.edit_message(event.from_id, event.id, msg+"\n\n"+"__"+"Running cpp command . . ."+"__")
@@ -125,7 +125,7 @@ def start(config):
 
     @client.on(events.NewMessage(pattern="/c"))
     async def add_c(event):
-        if str(event.sender_id) in os.environ.get("sender_id").split(','):
+        if str(event.sender_id) in os.environ.get("sender_id"):
 
             msg = event.message.message
             await client.edit_message(event.from_id, event.id, msg+"\n\n"+"__"+"Running c command . . ."+"__")
@@ -172,7 +172,7 @@ def start(config):
         
     @client.on(events.NewMessage(pattern="/animate"))
     async def text_list_animate(event):
-        if str(event.sender_id) in os.environ.get("sender_id").split(','):
+        if str(event.sender_id) in os.environ.get("sender_id"):
 
             msg = event.message.message
             await client.edit_message(event.from_id, event.id, msg+"\n\n"+"__"+"Running c command . . ."+"__")
