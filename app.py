@@ -195,10 +195,10 @@ def start(config):
                     st = time-time()
                     j = 0
                     while(j<len(result)):
-                        print(result[i])
+                        print(result[j])
                         # time.sleep(0.6)
                         j+=1
-                    await client.edit_message(event.from_id,event.id,result[j])
+                    await client.edit_message(event.from_id,event.id,result[0])
                 except Exception as excp:
                     await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+"**")
 
