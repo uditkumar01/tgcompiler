@@ -12,7 +12,7 @@ from  telethon . errors  import  SessionPasswordNeededError
 import os
 import  telethon . sync
 import subprocess
-
+import time
 from  pprint  import  pprint
         
 
@@ -123,7 +123,7 @@ def start(config):
                 except Exception as excp:
                     await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(excp),12)][len(excp)<20]+"\n"+"__ERROR:__\n\n**"+excp+"**")
 
-    @client.on(events.NewMessage(pattern="/c |/c\n"))
+    @client.on(events.NewMessage(pattern="/c"))
     async def add_c(event):
         if str(event.sender_id) in os.environ.get("sender_id").split(','):
 
@@ -134,7 +134,7 @@ def start(config):
             except IndexError:
                 await client.edit_message(event.from_id, event.id, msg+"\n\n"+"__"+"No arguments given (c) ...__")
             command = "".join(f"\n {x}" for x in code.split("\n.strip()"))
-            indexofip = command.find("c_input_vars")
+            indexofip = command.find("c_input_vahttps://gph.is/2aiITrqrs")
             ip = ""
             if indexofip != -1:
                 user_in = command[indexofip+len("c_input_vars:"):].strip()
@@ -167,6 +167,35 @@ def start(config):
             else:
                 try:
                     await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+"**")
+                except Exception as excp:
+                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(excp),12)][len(excp)<20]+"\n"+"__ERROR:__\n\n**"+excp+"**")
+        
+    @client.on(events.NewMessage(pattern="/animate"))
+    async def text_list_animate(event):
+        if str(event.sender_id) in os.environ.get("sender_id").split(','):
+
+            msg = event.message.message
+            await client.edit_message(event.from_id, event.id, msg+"\n\n"+"__"+"Running c command . . ."+"__")
+            try:
+                code = msg.lstrip('/animate')
+            except IndexError:
+                await client.edit_message(event.from_id, event.id, msg+"\n\n"+"__"+"No arguments given (c) ...__")
+            command = "".join(f"\n {x}" for x in code.split("\n.strip()"))
+            result = result.split(',')
+            if len(result) > 2500:
+                await client.edit_message(event.from_id, event.id, msg+"\n\n"+"__"+"Result is too big .. send as file__")
+                with open("output.txt", "w+") as f:
+                    f.write(result)
+                await client.send_file(event.chat_id, 'output.txt')
+                os.remove("output.txt")
+            else:
+                try:
+                    st = time-time()
+                    j = 0
+                    while(j<len(result)):
+                        await client.edit_message(event.from_id,event.id,result[j])
+                        time.sleep(0.6)
+                        j+=1
                 except Exception as excp:
                     await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(excp),12)][len(excp)<20]+"\n"+"__ERROR:__\n\n**"+excp+"**")
 
