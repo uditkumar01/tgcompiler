@@ -192,11 +192,13 @@ def start(config):
                 os.remove("output.txt")
             else:
                 try:
-                    indexofresult = 0
-                    while(indexofresult<len(result)):
+                    indexofresult,st = 0,time.time()
+                    while(time.time()-st<120):
                         await client.edit_message(event.from_id,event.id,str(result[indexofresult]))
-                        time.sleep(1)
+                        time.sleep(1.5)
                         indexofresult+=1
+                        if indexofresult>=len(result):
+                            indexofresult = 0
                 except Exception as excp:
                     await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+"**")
         
