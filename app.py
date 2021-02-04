@@ -175,6 +175,8 @@ def start(config):
         if str(event.sender_id) in os.environ.get("sender_id"):
             print("*"*20)
             print("event",event)
+            print("id",event.id)
+            print("id1",event.original_update.id)
             print("*"*20)
             msg = event.message.message
             await client.edit_message(event.from_id,msg+"\n\n"+"__"+"Running c command . . ."+"__")
