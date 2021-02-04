@@ -193,9 +193,9 @@ def start(config):
             else:
                 try:
                     indexofresult,st = 0,time.time()
-                    while(time.time()-st<120):
+                    while(time.time()-st<900):
                         await client.edit_message(event.from_id,event.id,str(result[indexofresult]))
-                        time.sleep(1.5)
+                        time.sleep(1)
                         indexofresult+=1
                         if indexofresult>=len(result):
                             indexofresult = 0
