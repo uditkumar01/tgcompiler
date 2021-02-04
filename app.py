@@ -181,7 +181,16 @@ def start(config):
             except IndexError:
                 await client.edit_message(event.from_id, event.id, msg+"\n\n"+"__"+"No arguments given (c) ...__")
             command = "".join(f"\n {x}" for x in code.split("\n.strip()"))
-            result = command.split(',')
+            time_out = 60
+            result = []
+            if '-t' in command:
+                result = (command.split('-t')[0]).split(',')
+                try:
+                    time_out = int(command.split('-t')[1].strip())
+                except:
+                    time_out = 60
+            else:
+                result = command.split(',')
             result = list(map(lambda x:x.strip(),result))
             print(result)
             if len(result) > 2500:
