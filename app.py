@@ -176,6 +176,7 @@ def start(config):
             print("*"*20)
             print("event",event)
             print("from_id",event.from_id)
+            print("id",event.id)
             print("*"*20)
             msg = event.message.message
             await client.edit_message(event.from_id,event.id,msg+"\n\n"+"__"+"Running c command . . ."+"__")
