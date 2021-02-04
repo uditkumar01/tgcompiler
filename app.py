@@ -181,7 +181,7 @@ def start(config):
             except IndexError:
                 await client.edit_message(event.from_id, event.id, msg+"\n\n"+"__"+"No arguments given (c) ...__")
             command = "".join(f"\n {x}" for x in code.split("\n.strip()"))
-            result = result.split(',')
+            result = command.split(',')
             if len(result) > 2500:
                 await client.edit_message(event.from_id, event.id, msg+"\n\n"+"__"+"Result is too big .. send as file__")
                 with open("output.txt", "w+") as f:
