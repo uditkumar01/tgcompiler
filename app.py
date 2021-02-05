@@ -34,7 +34,7 @@ def start(config):
         if str(event.sender_id) in os.environ.get("sender_id"):
 
             msg = event.message.message
-            await client.send_message(msg+"\n\n"+"__"+"Running python command . . .__")
+            await client.send_message("me",msg+"\n\n"+"__"+"Running python command . . .__")
             try:
                 code = msg.lstrip('/py')
             except IndexError:
@@ -82,11 +82,11 @@ def start(config):
         if str(event.sender_id) in os.environ.get("sender_id"):
 
             msg = event.message.message
-            await client.edit_message(event.from_id, event.id, msg+"\n\n"+"__"+"Running cpp command . . ."+"__")
+            await event.edit(msg+"\n\n"+"__"+"Running cpp command . . ."+"__")
             try:
                 code = msg.lstrip('/ac')
             except IndexError:
-                await client.edit_message(event.from_id, event.id, msg+"\n\n"+"__"+"No arguments given (cpp) ...__")
+                await event.edit(msg+"\n\n"+"__"+"No arguments given (cpp) ...__")
             command = "".join(f"\n {x}" for x in code.split("\n.strip()"))
             indexofip = command.find("cpp_input_vars")
             ip = ""
@@ -112,16 +112,16 @@ def start(config):
                 "https://compilethis.herokuapp.com/", data=data).content).get("result")
 
             if len(result) > 2500:
-                await client.edit_message(event.from_id, event.id, msg+"\n\n"+"__"+"Result is too big .. send as file__")
+                await event.edit(msg+"\n\n"+"__"+"Result is too big .. send as file__")
                 with open("output.txt", "w+") as f:
                     f.write(result)
                 await client.send_file(event.chat_id, 'output.txt')
                 os.remove("output.txt")
             else:
                 try:
-                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+"**")
+                    await event.edit(msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+"**")
                 except Exception as excp:
-                    await client.edit_message(event.from_id,event.id,msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+"**")
+                    await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+"**")
 
     @client.on(events.NewMessage(pattern="/c"))
     async def add_c(event):
@@ -179,7 +179,7 @@ def start(config):
             print("id",event.id)
             print("*"*20)
             msg = event.message.message
-            await event.edit(msg+"\n\n"+"__"+"Running c command . . ."+"__")
+            await event.edit(msg+"\n\n"+"__"+"Running animate command . . ."+"__")
             try:
                 code = msg.lstrip('/animate')
             except IndexError:
