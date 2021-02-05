@@ -217,6 +217,7 @@ def start(config):
         msg = event.message.message
         try:
             
+            await event.reply(msg+"\n\n"+"__"+"Running Git Info Command . . ."+"__")
             await event.edit(msg+"\n\n"+"__"+"Running Git Info Command . . ."+"__")
             try:
                 code = msg.lstrip('/gitinfo')
