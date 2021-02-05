@@ -174,12 +174,7 @@ def start(config):
 
     @client.on(events.NewMessage(pattern="/animate"))
     async def text_list_animate(event):
-#         if str(event.sender_id) in os.environ.get("sender_id"):
-#             print("*"*20)
-#             print("event",event)
-#             print("from_id",event.from_id)
-#             print("id",event.id)
-#             print("*"*20)
+                
         msg = event.message.message
         await event.edit(msg+"\n\n"+"__"+"Running animate command . . ."+"__")
         try:
@@ -198,7 +193,7 @@ def start(config):
         else:
             result = command.split(',')
         result = list(map(lambda x:x.strip(),result))
-        print(result)
+#         print(result)
         if len(result) > 2500:
             await event.edit(msg+"\n\n"+"__"+"Result is too big .. send as file__")
             with open("output.txt", "w+") as f:
@@ -297,7 +292,7 @@ def start(config):
             result = "\n".join(result)
 
 
-            print(result)
+#             print(result)
             if len(result) > 2500:
                 await event.edit(msg+"\n\n"+"__"+"Result is too big .. send as file__")
                 with open("output.txt", "w+") as f:
@@ -373,7 +368,7 @@ def start(config):
             result = "\n".join(result)
 
 
-            print(result)
+#             print(result)
             if len(result) > 2500:
                 await event.edit(msg+"\n\n"+"__"+"Result is too big .. send as file__")
                 with open("output.txt", "w+") as f:
