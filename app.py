@@ -239,7 +239,7 @@ def start(config):
         result = []
         result.append("Username: "+username)
 
-        no_of_repo,no_of_followers,no_of_following,bio,status,profile_img,contributions_last_year = None,None,None,None,None,None,None
+        no_of_repo,no_of_followers,no_of_following,bio,status,profile_img,contributions_last_year,no_of_stars = None,None,None,None,None,None,None,None
         try:
             no_of_repo = soup.find('span',{'class':'Counter'}).text
             result.append("Number of repos: "+no_of_repo)
@@ -253,6 +253,11 @@ def start(config):
         try:
             no_of_following = soup.find('a',{'href':'/'+username+'?tab=following'}).find('span').text
             result.append("Number of following: "+no_of_following)
+        except:
+            pass
+        try:
+            no_of_stars = soup.find('a',{'href':'/'+username+'?tab=stars'}).find('span').text
+            result.append("Number of stars: "+no_of_stars)
         except:
             pass
         try:
