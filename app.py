@@ -311,6 +311,83 @@ def start(config):
                     await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+" **")
         except Exception as excp:
             await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__PAGE ERROR:__\n\n**"+str(excp)+" **")
+            
+            
+    @client.on(events.NewMessage(pattern="/gitrepo"))
+    async def git_user_repo_info(event):
+        msg = event.message.message
+        try:
+            
+            await event.edit(msg+"\n\n"+"__"+"Running Git Repo Command . . ."+"__")
+            try:
+                code = msg.lstrip('/gitrepo')
+            except IndexError:
+                await event.edit(msg+"\n\n"+"__"+"No arguments given (gitrepo) ...__")
+            command = "".join(f"\n {x}" for x in code.split("\n.strip()"))
+            user_repo = command.strip()
+            
+            url = "https://github.com/"
+
+            page = urllib.request.urlopen(url+user_repo)
+
+            soup = BeautifulSoup(page,"html.parser")
+
+            result = []
+            result.append("Username: "+user_repo.split('/')[0])
+            result.append("Repository: "+user_repo.split('/')[1])
+
+            no_of_stars,no_of_forks,zip_link,no_of_watch,no_of_branches,no_of_issues = None,None,None,None,None,None
+            
+            try:
+                no_of_stars = soup.find('a',{'href':'/'+user_repo+'/stargazers'}).text.strip()
+                result.append("Number of stars: "+no_of_stars)
+            except:
+                pass
+            try:
+                no_of_forks = soup.find('a',{'href':'/'+user_repo+'/network/members'}).text.strip()
+                result.append("Number of forks: "+no_of_forks)
+            except:
+                pass
+            try:
+                no_of_issues = soup.find('a',{'href':'/'+user_repo+'/issues'}).text.strip()
+                result.append("Number of issues: "+no_of_issues.split("\n")[1].strip())
+            except:
+                pass
+            try:
+                zip_link = soup.find('a',{'href':'/'+user_repo+'/archive/master.zip'})['href']
+                result.append("Zip link: "+url+zip_link)
+            except:
+                pass
+            try:
+                no_of_watch = soup.find('a',{'href':'/'+user_repo+'/watchers'}).text.strip()
+                result.append("Watch: "+no_of_watch)
+            except:
+                pass
+            try:
+                no_of_branches = soup.find('a',{'href':'/'+user_repo+'/branches'}).text.strip()
+                result.append("Number of Branches: "+no_of_branches.split("\n")[0].strip())
+            except:
+                pass
+            # print(result)
+
+            result = "\n".join(result)
+
+
+            print(result)
+            if len(result) > 2500:
+                await event.edit(msg+"\n\n"+"__"+"Result is too big .. send as file__")
+                with open("output.txt", "w+") as f:
+                    f.write(result)
+                await client.send_file(event.chat_id, 'output.txt')
+                os.remove("output.txt")
+            else:
+                try:
+                    await event.edit(msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+" **")
+                except Exception as excp:
+                    await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+" **")
+        except Exception as excp:
+            await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__PAGE ERROR:__\n\n**"+str(excp)+" **")
+
 
     client.run_until_disconnected()
 
