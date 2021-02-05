@@ -36,11 +36,17 @@ def start(config):
 #         if str(event.sender_id) in os.environ.get("sender_id"):
 
         msg = event.message.message
-        await event.edit(msg+"\n\n"+"__"+"Running python command . . .__")
+        if os.environ.get("sender_id")==str(event.sender_id):
+            await event.edit(msg+"\n\n"+"__"+"Running python command . . .__")
+        else:
+            await event.reply("__Running python command . . .__")
         try:
             code = msg.lstrip('/py')
         except IndexError:
-            await event.edit(msg+"\n\n"+"__"+"No arguments given (py) ...__")
+            if os.environ.get("sender_id")==str(event.sender_id):
+                await event.edit(msg+"\n\n"+"__"+"No arguments given (py) ...__")
+            else:
+                await event.reply("__No arguments given (py) ...__")
 
         command = "".join(f"\n {x}" for x in code.split("\n.strip()"))
         indexofip = command.find("py_input_vars")
@@ -55,6 +61,7 @@ def start(config):
             py_input_vars:
             1 2 3 4 5
             3 4 5 6 7
+            
         """
 
         data = {
@@ -67,7 +74,11 @@ def start(config):
             "https://compilethis.herokuapp.com/", data=data).content).get("result")
 
         if len(result) > 2500:
-            await event.edit(msg+"\n\n"+"__"+"Result is too big .. send as file__")
+            if os.environ.get("sender_id")==str(event.sender_id):
+                await event.edit(msg+"\n\n"+"__"+"Result is too big .. send as file__")
+            else:
+                await event.reply("__Result is too big .. send as file__")
+                
             with open("output.txt", "w+") as f:
                 f.write(result)
             await client.send_file(event.chat_id, 'output.txt')
@@ -75,9 +86,15 @@ def start(config):
         else:
             # time.sleep(2)
             try:
-                await event.edit(msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+" **")
+                if os.environ.get("sender_id")==str(event.sender_id):
+                    await event.edit(msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+" **")
+                else:
+                    await event.reply("** "+result+" **")
             except Exception as excp:
-                await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+" **")
+                if os.environ.get("sender_id")==str(event.sender_id):
+                    await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+" **")
+                else:
+                    await event.reply("** "+str(excp)+" **")
 
     @client.on(events.NewMessage(pattern="/ac"))
     async def add_cpp(event):
@@ -121,9 +138,15 @@ def start(config):
             os.remove("output.txt")
         else:
             try:
-                await event.edit(msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+" **")
+                if os.environ.get("sender_id")==str(event.sender_id):
+                    await event.edit(msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+" **")
+                else:
+                    await event.reply("** "+result+" **")
             except Exception as excp:
-                await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+" **")
+                if os.environ.get("sender_id")==str(event.sender_id):
+                    await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+" **")
+                else:
+                    await event.reply("** "+str(excp)+" **")
 
     @client.on(events.NewMessage(pattern="/c"))
     async def add_c(event):
@@ -168,9 +191,15 @@ def start(config):
             os.remove("output.txt")
         else:
             try:
-                await event.edit(msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+" **")
+                if os.environ.get("sender_id")==str(event.sender_id):
+                    await event.edit(msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+" **")
+                else:
+                    await event.reply("** "+result+" **")
             except Exception as excp:
-                await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+" **")
+                if os.environ.get("sender_id")==str(event.sender_id):
+                    await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+" **")
+                else:
+                    await event.reply("** "+str(excp)+" **")
 
     @client.on(events.NewMessage(pattern="/animate"))
     async def text_list_animate(event):
@@ -217,7 +246,6 @@ def start(config):
         msg = event.message.message
         try:
             
-            await event.reply(msg+"\n\n"+"__"+"Running Git Info Command . . ."+"__")
             await event.edit(msg+"\n\n"+"__"+"Running Git Info Command . . ."+"__")
             try:
                 code = msg.lstrip('/gitinfo')
@@ -302,11 +330,20 @@ def start(config):
                 os.remove("output.txt")
             else:
                 try:
-                    await event.edit(msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+" **")
+                    if os.environ.get("sender_id")==str(event.sender_id):
+                        await event.edit(msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+" **")
+                    else:
+                        await event.reply("** "+result+" **")
                 except Exception as excp:
-                    await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+" **")
+                    if os.environ.get("sender_id")==str(event.sender_id):
+                        await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+" **")
+                    else:
+                        await event.reply("** "+str(excp)+" **")
         except Exception as excp:
-            await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__PAGE ERROR:__\n\n**"+str(excp)+" **")
+            if os.environ.get("sender_id")==str(event.sender_id):
+                await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__PAGE ERROR:__\n\n**"+str(excp)+" **")
+            else:
+                await event.reply("** "+str(excp)+" **")
             
             
     @client.on(events.NewMessage(pattern="/gitrepo"))
@@ -378,11 +415,20 @@ def start(config):
                 os.remove("output.txt")
             else:
                 try:
-                    await event.edit(msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+" **")
+                    if os.environ.get("sender_id")==str(event.sender_id):
+                        await event.edit(msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+" **")
+                    else:
+                        await event.reply("** "+result+" **")
                 except Exception as excp:
-                    await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+" **")
+                    if os.environ.get("sender_id")==str(event.sender_id):
+                        await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+" **")
+                    else:
+                        await event.reply("** "+str(excp)+" **")
         except Exception as excp:
-            await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__PAGE ERROR:__\n\n**"+str(excp)+" **")
+            if os.environ.get("sender_id")==str(event.sender_id):
+                await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__PAGE ERROR:__\n\n**"+str(excp)+" **")
+            else:
+                await event.reply("** "+str(excp)+" **")
 
 
     client.run_until_disconnected()
