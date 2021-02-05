@@ -12,7 +12,7 @@ from  telethon . errors  import  SessionPasswordNeededError
 import os
 import  telethon . sync
 import subprocess
-import time
+import asyncio
 from  pprint  import  pprint
         
 
@@ -34,7 +34,7 @@ def start(config):
         if str(event.sender_id) in os.environ.get("sender_id"):
 
             msg = event.message.message
-            await client.send_message(event.peer_id,msg+"\n\n"+"__"+"Running python command . . .__")
+            await event.send_message(msg+"\n\n"+"__"+"Running python command . . .__")
             try:
                 code = msg.lstrip('/py')
             except IndexError:
@@ -208,7 +208,7 @@ def start(config):
                     indexofresult,st = 0,time.time()
                     while(time.time()-st<time_out):
                         await event.edit(str(result[indexofresult]))
-                        time.sleep(1)
+                        asyncio.sleep(1)
                         indexofresult+=1
                         if indexofresult>=len(result):
                             indexofresult = 0
