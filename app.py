@@ -14,6 +14,8 @@ import  telethon . sync
 import subprocess
 import asyncio,time
 from  pprint  import  pprint
+from bs4 import BeautifulSoup
+import urllib.request,urllib
         
 
 logging.basicConfig(
@@ -214,7 +216,90 @@ def start(config):
                         indexofresult = 0
             except Exception as excp:
                 await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+"**")
+    
+    @client.on(events.NewMessage(pattern="/gitinfo"))
+    def git_user_info():
+        
+        msg = event.message.message
+        await event.edit(msg+"\n\n"+"__"+"Running git info command . . ."+"__")
+        try:
+            code = msg.lstrip('/gitinfo')
+        except IndexError:
+            await event.edit(msg+"\n\n"+"__"+"No arguments given (c) ...__")
+        command = "".join(f"\n {x}" for x in code.split("\n.strip()"))
+        
+        username = command.strip()
+        
+        url = "https://github.com/"
 
+        page = urllib.request.urlopen(url+username)
+
+        soup = BeautifulSoup(page,"html.parser")
+
+        result = []
+        result.append("Username: "+username)
+
+        no_of_repo,no_of_followers,no_of_following,bio,status,profile_img,contributions_last_year = None,None,None,None,None,None,None
+        try:
+            no_of_repo = soup.find('span',{'class':'Counter'}).text
+            result.append("Number of repos: "+no_of_repo)
+        except:
+            pass
+        try:
+            no_of_followers = soup.find('a',{'href':'/'+username+'?tab=followers'}).find('span').text
+            result.append("Number of followers: "+no_of_followers)
+        except:
+            pass
+        try:
+            no_of_following = soup.find('a',{'href':'/'+username+'?tab=following'}).find('span').text
+            result.append("Number of following: "+no_of_following)
+        except:
+            pass
+        try:
+            bio = soup.find('div',{'class':'user-profile-bio'}).find('div').text.strip().split()
+            bio_list = []
+            for bio_word in bio:
+                if bio_word.strip():
+                    bio_list.append(bio_word)
+            result.append(username+"'s bio: "+" ".join(bio_list))
+        except:
+            pass
+        try:
+            status = soup.find('div',{'class':'user-status-message-wrapper'}).find('div',{'class':''}).text.strip().split()
+            status_list = []
+            for status_word in status:
+                if status_word.strip():
+                    status_list.append(status_word)
+            result.append(username+"'s status: "+" ".join(status_list))
+        except:
+            pass
+        try:
+            profile_img = soup.find('img',{'alt':'@'+username})['src']
+            result.append("Profile pic URL: "+profile_img)
+        except:
+            pass
+        try:
+            contributions_last_year = soup.find('div',{'class':'js-yearly-contributions'}).find('h2').text.strip().split()
+            contributions_last_year_list = []
+            for contributions in contributions_last_year:
+                if contributions.strip():
+                    contributions_last_year_list.append(contributions)
+            result.append("Contributions: "+" ".join(contributions_last_year_list))
+        except:
+            pass
+        # print(no_of_repo,no_of_followers,no_of_following,bio,status,contributions_last_year,profile_img)
+        result = "\n".join(result)
+        if len(result) > 2500:
+            await event.edit(msg+"\n\n"+"__"+"Result is too big .. send as file__")
+            with open("output.txt", "w+") as f:
+                f.write(result)
+            await client.send_file(event.chat_id, 'output.txt')
+            os.remove("output.txt")
+        else:
+            try:
+                await event.edit(msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+"**")
+            except Exception as excp:
+                await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+"**")
 
 
     client.run_until_disconnected()
