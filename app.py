@@ -207,7 +207,7 @@ def start(config):
                 try:
                     indexofresult,st = 0,time.time()
                     while(time.time()-st<time_out):
-                        await event.edit(event.id,str(result[indexofresult]))
+                        await event.edit(str(result[indexofresult]))
                         time.sleep(1)
                         indexofresult+=1
                         if indexofresult>=len(result):
