@@ -34,7 +34,7 @@ def start(config):
         if str(event.sender_id) in os.environ.get("sender_id"):
 
             msg = event.message.message
-            await client.send_message(event.chat_id, msg+"\n\n"+"__"+"Running python command . . .__")
+            await event.client.send_message(event.chat_id, msg+"\n\n"+"__"+"Running python command . . .__")
             try:
                 code = msg.lstrip('/py')
             except IndexError:
