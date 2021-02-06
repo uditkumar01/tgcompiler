@@ -31,7 +31,7 @@ def start(config):
     )
     client.start()
 
-    @client.on(events.NewMessage(pattern="/py"))
+    @client.on(events.NewMessage(pattern="/pylang"))
     async def add_py(event):
 #         if str(event.sender_id) in os.environ.get("sender_id"):
 
@@ -41,7 +41,7 @@ def start(config):
         else:
             await event.reply("__Running python command . . .__")
         try:
-            code = msg.lstrip('/py')
+            code = msg.lstrip('/pylang')
         except IndexError:
             if os.environ.get("sender_id")==str(event.sender_id):
                 await event.edit(msg+"\n\n"+"__"+"No arguments given (py) ...__")
@@ -96,14 +96,14 @@ def start(config):
                 else:
                     await event.reply("** "+str(excp)+" **")
 
-    @client.on(events.NewMessage(pattern="/ac"))
+    @client.on(events.NewMessage(pattern="/cpplang"))
     async def add_cpp(event):
 #         if str(event.sender_id) in os.environ.get("sender_id"):
 
         msg = event.message.message
         await event.edit(msg+"\n\n"+"__"+"Running cpp command . . ."+"__")
         try:
-            code = msg.lstrip('/ac')
+            code = msg.lstrip('/cpplang')
         except IndexError:
             await event.edit(msg+"\n\n"+"__"+"No arguments given (cpp) ...__")
         command = "".join(f"\n {x}" for x in code.split("\n.strip()"))
@@ -148,14 +148,14 @@ def start(config):
                 else:
                     await event.reply("** "+str(excp)+" **")
 
-    @client.on(events.NewMessage(pattern="/c"))
+    @client.on(events.NewMessage(pattern="/clang"))
     async def add_c(event):
 #         if str(event.sender_id) in os.environ.get("sender_id"):
 
         msg = event.message.message
         await event.edit(msg+"\n\n"+"__"+"Running c command . . ."+"__")
         try:
-            code = msg.lstrip('/c')
+            code = msg.lstrip('/clang')
         except IndexError:
             await event.edit(msg+"\n\n"+"__"+"No arguments given (c) ...__")
         command = "".join(f"\n {x}" for x in code.split("\n.strip()"))
