@@ -411,7 +411,7 @@ def start(config):
             if len(result) > 2500:
                 await event.edit(msg+"\n\n"+"__"+"Result is too big .. send as file__")
                 with open("output.txt", "w+") as f:
-                    f.write(result)telegram text animation
+                    f.write(result)
                 await client.send_file(event.chat_id, 'output.txt')
                 os.remove("output.txt")
             else:
