@@ -332,7 +332,8 @@ def start(config):
             else:
                 try:
                     if os.environ.get("sender_id")==str(event.sender_id):
-                        await event.edit(msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+" **")
+                        await event.edit("__"+msg+"__")
+                        await event.reply(msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+" **")
                     else:
                         await event.reply("** "+result+" **")
                 except Exception as excp:
@@ -417,7 +418,8 @@ def start(config):
             else:
                 try:
                     if os.environ.get("sender_id")==str(event.sender_id):
-                        await event.edit(msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+" **")
+                        await event.edit("__"+msg+"__")
+                        await event.reply(msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+" **")
                     else:
                         await event.reply("** "+result+" **")
                 except Exception as excp:
