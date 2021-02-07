@@ -268,7 +268,7 @@ def start(config):
             
             try:
                 no_of_repo = soup.find('span',{'class':'Counter'}).text
-                result.append("Number of repos: "+no_of_repo)
+                result.append("Number of repos:     "+no_of_repo)
             except:
                 pass
             try:
@@ -283,7 +283,7 @@ def start(config):
                 pass
             try:
                 no_of_stars = soup.find('a',{'href':'/'+username+'?tab=stars'}).find('span').text
-                result.append("Number of stars: "+no_of_stars)
+                result.append("Number of stars:     "+no_of_stars)
             except:
                 pass
             try:
@@ -374,17 +374,17 @@ def start(config):
             
             try:
                 no_of_stars = soup.find('a',{'href':'/'+user_repo+'/stargazers'}).text.strip()
-                result.append("Number of stars: "+no_of_stars)
+                result.append("Number of stars:     "+no_of_stars)
             except:
                 pass
             try:
                 no_of_forks = soup.find('a',{'href':'/'+user_repo+'/network/members'}).text.strip()
-                result.append("Number of forks: "+no_of_forks)
+                result.append("Number of forks:     "+no_of_forks)
             except:
                 pass
             try:
                 no_of_issues = soup.find('a',{'href':'/'+user_repo+'/issues'}).text.strip()
-                result.append("Number of issues: "+no_of_issues.split("\n")[1].strip())
+                result.append("Number of issues:    "+no_of_issues.split("\n")[1].strip())
             except:
                 pass
             try:
@@ -394,12 +394,12 @@ def start(config):
                 pass
             try:
                 no_of_watch = soup.find('a',{'href':'/'+user_repo+'/watchers'}).text.strip()
-                result.append("Watch: "+no_of_watch)
+                result.append("Watch:               "+no_of_watch)
             except:
                 pass
             try:
                 no_of_branches = soup.find('a',{'href':'/'+user_repo+'/branches'}).text.strip()
-                result.append("Number of Branches: "+no_of_branches.split("\n")[0].strip())
+                result.append("Number of Branches:  "+no_of_branches.split("\n")[0].strip())
             except:
                 pass
             # print(result)
