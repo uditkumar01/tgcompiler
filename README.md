@@ -10,7 +10,7 @@ This will help in various task while messaging on telegram like you can compile 
     
     /pylang
     l = [int(i) for i in input().split()]
-    print(l)
+    print(*l)
     
     py_input_vars:  # input here
     1 2 3 4 5
