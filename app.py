@@ -268,22 +268,22 @@ def start(config):
             
             try:
                 no_of_repo = soup.find('span',{'class':'Counter'}).text
-                result.append("Number of repos:"+" "*(LENGTH-len(no_of_repo)-len("Number of repos:"))+no_of_repo)
+                result.append("Number of repos: "+no_of_repo)
             except:
                 pass
             try:
                 no_of_followers = soup.find('a',{'href':'/'+username+'?tab=followers'}).find('span').text
-                result.append("Number of followers:"+" "*(LENGTH-len(no_of_followers)-len("Number of followers:"))+no_of_followers)
+                result.append("Number of followers: "+no_of_followers)
             except:
                 pass
             try:
                 no_of_following = soup.find('a',{'href':'/'+username+'?tab=following'}).find('span').text
-                result.append("Number of following:"+" "*(LENGTH-len(no_of_following)-len("Number of following:"))+no_of_following)
+                result.append("Number of following: "+no_of_following)
             except:
                 pass
             try:
                 no_of_stars = soup.find('a',{'href':'/'+username+'?tab=stars'}).find('span').text
-                result.append("Number of stars:"+" "*(LENGTH-len(no_of_stars)-len("Number of stars:"))+no_of_stars)
+                result.append("Number of stars: "+no_of_stars)
             except:
                 pass
             try:
