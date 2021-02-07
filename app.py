@@ -268,22 +268,22 @@ def start(config):
             
             try:
                 no_of_repo = soup.find('span',{'class':'Counter'}).text
-                result.append("Number of repos:"+" "*(LENGTH-len("Number of repos:"))+no_of_repo)
+                result.append("Number of repos:"+" "*(LENGTH-len(no_of_repo)-len("Number of repos:"))+no_of_repo)
             except:
                 pass
             try:
                 no_of_followers = soup.find('a',{'href':'/'+username+'?tab=followers'}).find('span').text
-                result.append("Number of followers:"+" "*(LENGTH-len("Number of followers:"))+no_of_followers)
+                result.append("Number of followers:"+" "*(LENGTH-len(no_of_followers)-len("Number of followers:"))+no_of_followers)
             except:
                 pass
             try:
                 no_of_following = soup.find('a',{'href':'/'+username+'?tab=following'}).find('span').text
-                result.append("Number of following:"+" "*(LENGTH-len("Number of following:"))+no_of_following)
+                result.append("Number of following:"+" "*(LENGTH-len(no_of_following)-len("Number of following:"))+no_of_following)
             except:
                 pass
             try:
                 no_of_stars = soup.find('a',{'href':'/'+username+'?tab=stars'}).find('span').text
-                result.append("Number of stars:"+" "*(LENGTH-len("Number of stars:"))+no_of_stars)
+                result.append("Number of stars:"+" "*(LENGTH-len(no_of_stars)-len("Number of stars:"))+no_of_stars)
             except:
                 pass
             try:
@@ -292,7 +292,7 @@ def start(config):
                 for bio_word in bio:
                     if bio_word.strip():
                         bio_list.append(bio_word)
-                result.append(username+"'s bio:"+" "*(LENGTH-len(username+"'s bio:"))+" ".join(bio_list))
+                result.append(username+"'s bio: "+" ".join(bio_list))
             except:
                 pass
             try:
@@ -306,7 +306,7 @@ def start(config):
                 pass
             try:
                 profile_img = soup.find('img',{'alt':'@'+username})['src']
-                result.append("Profile pic URL:"+" "*(LENGTH-len("Profile pic URL:"))+profile_img)
+                result.append("Profile pic URL: "+profile_img)
             except:
                 pass
             try:
@@ -315,7 +315,7 @@ def start(config):
                 for contributions in contributions_last_year:
                     if contributions.strip():
                         contributions_last_year_list.append(contributions)
-                result.append("Contributions:"+" "*(LENGTH-len("Contributions:"))+" ".join(contributions_last_year_list))
+                result.append("Contributions: "+" ".join(contributions_last_year_list))
             except:
                 pass
             # print(no_of_repo,no_of_followers,no_of_following,bio,status,contributions_last_year,profile_img)
