@@ -18,7 +18,7 @@ This will help in various task while messaging on telegram like you can compile 
     ```
     OUTPUT:
 
-    123 456 789 123 456 789 123 456 789
+    1 2 3 4 5
     ```
  - `/clang` can be used to compile python code while messaging.
     ```c
