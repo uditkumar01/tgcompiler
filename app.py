@@ -333,9 +333,9 @@ def start(config):
                 try:
                     if os.environ.get("sender_id")==str(event.sender_id):
                         await event.edit("__"+msg+"__")
-                        await event.reply(msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+" **")
+                        await event.reply(result)
                     else:
-                        await event.reply("** "+result+" **")
+                        await event.reply(result)
                 except Exception as excp:
                     if os.environ.get("sender_id")==str(event.sender_id):
                         await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+" **")
@@ -419,9 +419,9 @@ def start(config):
                 try:
                     if os.environ.get("sender_id")==str(event.sender_id):
                         await event.edit("__"+msg+"__")
-                        await event.reply(msg+"\n\n"+"="*[20,max(len(result),12)][len(result)<20]+"\n"+"__OUTPUT:__\n\n**"+result+" **")
+                        await event.reply(result)
                     else:
-                        await event.reply("** "+result+" **")
+                        await event.reply(result)
                 except Exception as excp:
                     if os.environ.get("sender_id")==str(event.sender_id):
                         await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+" **")
