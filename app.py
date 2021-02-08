@@ -262,7 +262,7 @@ def start(config):
             
             url = "https://github.com/"
 
-            page = urllib.request.urlopen(url+username)https://dashboard.heroku.com/apps/efb7e797-3da4-4587-926a-09105352e2ac/activity/builds/d257cc4c-9c78-4363-9d82-934951e48c78
+            page = urllib.request.urlopen(url+username)
 
             soup = BeautifulSoup(page,"html.parser")
 
