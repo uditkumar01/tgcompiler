@@ -497,7 +497,7 @@ def start(config):
                     await event.edit("__"+msg+"__")
                     await client.send_file(event.chat_id, username+'IMG.png')
                 else:
-                    await client.send_file(event.chat_id, username'IMG.png')
+                    await client.send_file(event.chat_id, username+'IMG.png')
                 os.remove(username+'IMG.png')
             except Exception as excp:
                 if os.environ.get("sender_id")==str(event.sender_id):
