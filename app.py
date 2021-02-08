@@ -489,7 +489,7 @@ def start(config):
             plt.yticks(y_pos, date)
             plt.xlabel('\nContributions')
             plt.title('Contribution Graph\n')
-            # plt.show()
+            plt.close()
             plt.savefig(username+'IMG.png')
             print(username,date,count)
             try:
