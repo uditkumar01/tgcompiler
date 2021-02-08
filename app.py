@@ -262,7 +262,7 @@ def start(config):
             
             url = "https://github.com/"
 
-            page = urllib.request.urlopen(url+username)
+            page = urllib.request.urlopen(url+username)https://dashboard.heroku.com/apps/efb7e797-3da4-4587-926a-09105352e2ac/activity/builds/d257cc4c-9c78-4363-9d82-934951e48c78
 
             soup = BeautifulSoup(page,"html.parser")
 
@@ -442,11 +442,11 @@ def start(config):
     async def git_user_repo_info(event):
         msg = event.message.message
         try:
-            await event.edit(msg+"\n\n"+"__"+"Running Git Repo Command . . ."+"__")
+            await event.edit(msg+"\n\n"+"__"+"Running Git Graph Command . . ."+"__")
             try:
-                code = msg.lstrip('/gitrepo')
+                code = msg.lstrip('/gitgraph')
             except IndexError:
-                await event.edit(msg+"\n\n"+"__"+"No arguments given (gitrepo) ...__")
+                await event.edit(msg+"\n\n"+"__"+"No arguments given (gitgraph) ...__")
             command = "".join(f"\n {x}" for x in code.split("\n.strip()"))
             username = command.strip()
             
