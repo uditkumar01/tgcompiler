@@ -16,6 +16,11 @@ import asyncio,time
 from  pprint  import  pprint
 from bs4 import BeautifulSoup
 import urllib.request,urllib
+import numpy as np 
+import matplotlib.pyplot as plt
+from matplotlib import RcParams
+import datetime,re
+
         
 
 logging.basicConfig(
@@ -390,7 +395,7 @@ def start(config):
                 pass
             try:
                 zip_link = soup.find('a',{'href':'/'+user_repo+'/archive/master.zip'})['href']
-                result.append("Zip link: "+url+zip_link)
+                result.append("Zip link: "+url[:-1]+zip_link)
             except:
                 pass
             try:
@@ -427,6 +432,77 @@ def start(config):
                         await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+" **")
                     else:
                         await event.reply("** "+str(excp)+" **")
+        except Exception as excp:
+            if os.environ.get("sender_id")==str(event.sender_id):
+                await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__PAGE ERROR:__\n\n**"+str(excp)+" **")
+            else:
+                await event.reply("** "+str(excp)+" **")
+                
+    @client.on(events.NewMessage(pattern="/gitgraph"))
+    async def git_user_repo_info(event):
+        msg = event.message.message
+        try:
+            await event.edit(msg+"\n\n"+"__"+"Running Git Repo Command . . ."+"__")
+            try:
+                code = msg.lstrip('/gitrepo')
+            except IndexError:
+                await event.edit(msg+"\n\n"+"__"+"No arguments given (gitrepo) ...__")
+            command = "".join(f"\n {x}" for x in code.split("\n.strip()"))
+            username = command.strip()
+            
+            url = "https://github.com/"
+
+            page = urllib.request.urlopen(url+username)
+
+            soup = BeautifulSoup(page,"html.parser")
+
+            date,count = [],[]
+            for ele in soup.find('svg',{'class':'js-calendar-graph-svg'}).find_all('rect',{'class':'ContributionCalendar-day'}):
+
+                if not date or date[-1]!=datetime.datetime.strptime(ele['data-date'],"%Y-%m-%d").strftime("%b %Y"):
+                    date.append(datetime.datetime.strptime(ele['data-date'],"%Y-%m-%d").strftime("%b %Y"))
+                    count.append(int(ele['data-count']))
+                elif date and count:
+                    count[-1] += int(ele['data-count'])
+
+
+            y_pos = np.arange(len(date))
+            plt.rcParams["figure.figsize"] = (10,8)
+            plt.rcParams["figure.dpi"] = 80
+            # plt.rcParams["axes.spines.right"] = False
+            # plt.rcParams["axes.spines.top"] = False
+            plt.rcParams["axes.titlecolor"] = "#253443"
+            plt.rcParams["axes.titleweight"] = "bold"
+            plt.rcParams["lines.markeredgecolor"] = "#253443"
+            plt.rcParams["boxplot.whiskerprops.color"] = "#253443"
+            plt.rcParams["boxplot.medianprops.color"] = "#253443"
+            plt.rcParams["patch.edgecolor"] = "#253443"
+            plt.rcParams["axes.labelcolor"] = "#253443"
+            plt.rcParams["ytick.color"] = "#253443"
+            plt.rcParams["xtick.color"] = "#253443"
+            plt.rcParams["text.color"] = "#253443"
+            plt.rcParams["hatch.color"] = "#253443"
+            plt.rcParams["axes.edgecolor"] = '#253443'
+            with open('f.csv','w') as f:
+                f.write(str(plt.rcParams.keys()))
+            plt.barh(y_pos, count,color=['#1e90ff', '#ff4757', '#2ed573', '#ff6348', '#747d8c','#ffa502','#6c5ce7','#e17055','#00b894','#B53471','#C4E538','#F79F1F'], align='center')
+            plt.yticks(y_pos, date)
+            plt.xlabel('\nContributions')
+            plt.title('Contribution Graph\n')
+            # plt.show()
+            plt.savefig('img.png')
+
+            try:
+                if os.environ.get("sender_id")==str(event.sender_id):
+                    await event.edit("__"+msg+"__")
+                    await client.send_image(event.chat_id, photo=('img.png'))
+                else:
+                    await client.send_image(event.chat_id, photo=('img.png'))
+            except Exception as excp:
+                if os.environ.get("sender_id")==str(event.sender_id):
+                    await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+" **")
+                else:
+                    await event.reply("** "+str(excp)+" **")
         except Exception as excp:
             if os.environ.get("sender_id")==str(event.sender_id):
                 await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__PAGE ERROR:__\n\n**"+str(excp)+" **")
