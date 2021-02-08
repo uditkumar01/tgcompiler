@@ -483,8 +483,8 @@ def start(config):
             plt.rcParams["text.color"] = "#253443"
             plt.rcParams["hatch.color"] = "#253443"
             plt.rcParams["axes.edgecolor"] = '#253443'
-            with open('f.csv','w') as f:
-                f.write(str(plt.rcParams.keys()))
+#             with open('f.csv','w') as f:
+#                 f.write(str(plt.rcParams.keys()))
             plt.barh(y_pos, count,color=['#1e90ff', '#ff4757', '#2ed573', '#ff6348', '#747d8c','#ffa502','#6c5ce7','#e17055','#00b894','#B53471','#C4E538','#F79F1F'], align='center')
             plt.yticks(y_pos, date)
             plt.xlabel('\nContributions')
