@@ -491,13 +491,14 @@ def start(config):
             plt.title('Contribution Graph\n')
             # plt.show()
             plt.savefig('img.png')
-
+            print(username,date,count)
             try:
                 if os.environ.get("sender_id")==str(event.sender_id):
                     await event.edit("__"+msg+"__")
                     await client.send_file(event.chat_id, 'img.png')
                 else:
                     await client.send_file(event.chat_id, 'img.png')
+                os.remove('img.png')
             except Exception as excp:
                 if os.environ.get("sender_id")==str(event.sender_id):
                     await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+" **")
