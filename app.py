@@ -489,8 +489,9 @@ def start(config):
             plt.yticks(y_pos, date)
             plt.xlabel('\nContributions')
             plt.title('Contribution Graph\n')
-            plt.close()
+            
             plt.savefig(username+'IMG.png')
+            plt.close()
             print(username,date,count)
             try:
                 if os.environ.get("sender_id")==str(event.sender_id):
