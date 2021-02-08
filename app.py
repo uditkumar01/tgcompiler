@@ -495,9 +495,9 @@ def start(config):
             try:
                 if os.environ.get("sender_id")==str(event.sender_id):
                     await event.edit("__"+msg+"__")
-                    await client.send_image(event.chat_id, photo=('img.png'))
+                    await client.send_photo(event.chat_id, photo=('img.png'))
                 else:
-                    await client.send_image(event.chat_id, photo=('img.png'))
+                    await client.send_photo(event.chat_id, photo=('img.png'))
             except Exception as excp:
                 if os.environ.get("sender_id")==str(event.sender_id):
                     await event.edit(msg+"\n\n"+"="*[20,max(len(str(excp)),12)][len(str(excp))<20]+"\n"+"__ERROR:__\n\n**"+str(excp)+" **")
