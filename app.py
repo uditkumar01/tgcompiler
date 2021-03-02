@@ -311,7 +311,7 @@ def start(config):
                 pass
             try:
                 profile_img = soup.find('img',{'alt':'@'+username})['src']
-                result.append("Profile pic URL: "+profile_img)
+                result.append("Profile pic URL: [Pic URL]("+profile_img+")")
             except:
                 pass
             try:
@@ -395,7 +395,7 @@ def start(config):
                 pass
             try:
                 zip_link = soup.find('a',{'href':'/'+user_repo+'/archive/master.zip'})['href']
-                result.append("Zip link: "+url[:-1]+zip_link)
+                result.append("Zip link: [click here to download zip]("+url[:-1]+zip_link+")")
             except:
                 pass
             try:
@@ -439,7 +439,7 @@ def start(config):
                 await event.reply("** "+str(excp)+" **")
                 
     @client.on(events.NewMessage(pattern="/gitgraph"))
-    async def git_user_repo_info(event):
+    async def git_user_repo_graph(event):
         msg = event.message.message
         try:
             await event.edit(msg+"\n\n"+"__"+"Running Git Graph Command . . ."+"__")
