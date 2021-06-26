@@ -12,7 +12,6 @@ rsa==4.7
 soupsieve==2.1
 Telethon==1.19.1
 toml==0.10.2
-urllib3==1.26.3
 chardet==4.0.0
 colorama==0.4.4
 configparser==5.0.1
