@@ -239,6 +239,7 @@ def start(config):
                 indexofresult,st = 0,time.time()
                 while(time.time()-st<time_out):
                     await event.edit(str(result[indexofresult]))
+                    await asyncio.sleep(0.6)
                     time.sleep(0.6)
                     indexofresult+=1
                     if indexofresult>=len(result):
