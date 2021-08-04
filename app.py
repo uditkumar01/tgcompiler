@@ -405,7 +405,11 @@ def start(config):
             except:
                 pass
             try:
-                no_of_branches = soup.find('a',{'href':'/'+user_repo+'/branches'}).text.strip()
+                branches = soup.find_all('a',{'href':'/'+user_repo+'/branches'})
+                for ele in branches:
+                    if("all" not in ele.text.lower()):
+                        no_of_branches = ele.text.strip()
+                        break
                 result.append("Number of Branches: "+no_of_branches.split("\n")[0].strip())
             except:
                 pass
